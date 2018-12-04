@@ -1,36 +1,7 @@
 import React from 'react'
 import {Helmet} from 'react-helmet'
 import axios from 'axios'
-import { renderRoutes } from 'react-router-config';
 import { withRouter } from "react-router"
-
-// const MyComponent = (WrappedComponent) =>
-//       class extends WrappedComponent {
-//         Head () {
-//           return (
-//             <Helmet>
-//               <title>My Wrapped Component Page title</title>
-//             </Helmet>
-//           )
-//         }
-
-//         render () {
-//           const {route} = this.props
-//           return (
-//             <div>
-//               <h1>hello world wrapped component</h1>
-//               <div>{renderRoutes(route.routes)}</div>
-//               {super.render()}
-//             </div>
-//           )
-//         }
-//       }
-
-async function fetchData () {
-  const data =  await axios.get('https://facebook.github.io/react-native/movies.json')
-  return data.data
-  // console.log(data.data)
-}
 
 @withRouter
 export default class Home extends React.Component {
@@ -45,8 +16,11 @@ export default class Home extends React.Component {
   }
 
   static fetching (ctx) {
-    console.log('--loaddata---')
-    return fetchData()
+    console.log('home--loaddata---')
+    return axios.get('https://facebook.github.io/react-native/movies.json')
+      .then(res => {
+        return res.data
+      })
   }
 
   Head () {

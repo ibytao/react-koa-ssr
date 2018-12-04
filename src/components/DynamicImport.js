@@ -1,33 +1,9 @@
-import React from 'react'
-import axios from 'axios'
+import React, {Component} from 'react'
+import Loadable from 'react-loadable'
 
-async function fetchData () {
-  const data = await axios.get('https://facebook.github.io/react-native/movies.json')
-  console.log(data.data)
-}
+const loading = () => <div>Loading...</div>
 
-export default class DynamicImport extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      component: null
-    }
-  }
-  
-  static loadData (ctx) {
-    console.log('--loaddata---', this)
-    return fetchData()
-  }
-
-  componentDidMount () {
-    this.props.load()
-      .then((component) => {
-        this.setState(() => ({
-          component: component.default ? component.default : component
-        }))
-      })
-  }
-  render() {
-    return this.props.children(this.state.component)
-  }
-}
+export default (component) => Loadable({
+  loader: () => component,
+  loading
+})

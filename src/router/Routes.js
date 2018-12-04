@@ -1,59 +1,24 @@
 import React, {Component} from 'react'
-import Loadable from 'react-loadable'
-import DynamicImport from 'components/DynamicImport'
-
-const loading = () => <div>Loading...</div>
-
-const Import = (path) => {
-  return props => (
-    <DynamicImport load={() => import('../pages/home')}>
-      {(Component) => {
-        // Import.loadData = Component.loadData
-        if (Component === null) {
-          return <p>Loading</p>
-        } else {
-          Import.loadData = Component.loadData
-          return <Component {...props} />
-        }
-      }}
-    </DynamicImport>
-  )
-}
-
-const Home = Loadable({
-  loader: () => import('../pages/home'),
-  loading
-})
-
-const About = Loadable({
-  loader: () => import('../pages/about'),
-  loading
-})
-
-const NotFound = Loadable({
-  loader: () => import('../pages/not-found'),
-  loading
-})
-
+import Import from 'components/DynamicImport'
 
 export default [
   {
     path: '/',
     exact: true,
-    component: Home
+    component: Import(import('../pages/home'))
   },
   {
     path: '/about',
-    component: About,
+    component: Import(import('../pages/layout')),
     routes: [
       {
         path: "/:id",
-        component: About
+        component: Import(import('../pages/about'))
       }
     ]
   },
   {
     path: '*',
-    component: NotFound
+    component: Import(import('../pages/not-found'))
   }
 ]
