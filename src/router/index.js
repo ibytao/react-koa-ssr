@@ -2,7 +2,19 @@ import React from 'react'
 import { Switch } from 'react-router'
 import { Route, Redirect } from 'react-router-dom'
 import { renderRoutes } from 'react-router-config'
-import Routes from 'routes/index'
+import { BrowserRouter } from 'react-router-dom'
+import Routes from './Routes'
+
+export default class App extends React.Component {
+  render () {
+    return (
+      <BrowserRouter>
+        <div>{renderRoutes(Routes)}</div>
+      </BrowserRouter>
+    )
+  }
+}
+
 
 // const renderRoutes = (routes, authed, authPath, extraProps = {}, switchProps = {}) => routes ? (
 //   <Switch {...switchProps}>
@@ -13,7 +25,7 @@ import Routes from 'routes/index'
 //         exact={route.exact}
 //         strict={route.strict}
 //         render={(props) => {
-          
+
 //           if( !route.restricted || authed || route.path == authPath) {
 //             return <route.component {...props} {...extraProps} route={route}/>
 //           }
@@ -24,9 +36,3 @@ import Routes from 'routes/index'
 //     ))}
 //   </Switch>
 // ) : null
-
-export default class App extends React.Component {
-  render () {
-    return renderRoutes(Routes)
-  }
-}

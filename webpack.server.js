@@ -1,16 +1,18 @@
 const path = require('path')
 const webpackNodeExternals = require('webpack-node-externals')
+const config = require('./config')
 
 module.exports = {
+  mode: config.env,
   target: 'node',
-  entry: './src/server/index.js',
+  entry: './server/index.js',
   output: {
-    filename: 'bundle.js',
+    filename: 'server.js',
     path: path.resolve(__dirname, 'build'),
     publicPath: '/build'
   },
   resolve: {
-    modules: [path.resolve('./src/client'), "node_modules"]
+    modules: [path.resolve('./src'), "node_modules"]
   },
   module: {
     rules: [
@@ -27,17 +29,6 @@ module.exports = {
             ]
           }
         }
-      },
-      {
-        test: /\.(png|jpg|gif)$/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              name: 'assets/webpack-images/[name].[ext]'
-            }
-          }
-        ]
       }
     ]
   },

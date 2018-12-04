@@ -4,27 +4,27 @@ import axios from 'axios'
 import { renderRoutes } from 'react-router-config';
 import { withRouter } from "react-router"
 
-const MyComponent = (WrappedComponent) =>
-      class extends WrappedComponent {
-        Head () {
-          return (
-            <Helmet>
-              <title>My Wrapped Component Page title</title>
-            </Helmet>
-          )
-        }
-        
-        render () {
-          const {route} = this.props
-          return (
-            <div>
-              <h1>hello world wrapped component</h1>
-              {renderRoutes(route.routes)}
-              {super.render()}
-            </div>
-          )
-        }
-      }
+// const MyComponent = (WrappedComponent) =>
+//       class extends WrappedComponent {
+//         Head () {
+//           return (
+//             <Helmet>
+//               <title>My Wrapped Component Page title</title>
+//             </Helmet>
+//           )
+//         }
+
+//         render () {
+//           const {route} = this.props
+//           return (
+//             <div>
+//               <h1>hello world wrapped component</h1>
+//               <div>{renderRoutes(route.routes)}</div>
+//               {super.render()}
+//             </div>
+//           )
+//         }
+//       }
 
 async function fetchData () {
   const data =  await axios.get('https://facebook.github.io/react-native/movies.json')
@@ -33,7 +33,6 @@ async function fetchData () {
 }
 
 @withRouter
-@MyComponent
 export default class Home extends React.Component {
 
   constructor(props) {
@@ -57,16 +56,16 @@ export default class Home extends React.Component {
       </Helmet>
     )
   }
-  
+
   exampleMethod () {
     console.log('Js is running')
+    // location.href = '/about'
     this.props.history.push('/about')
     // console.log(this.props.history)
   }
   render () {
     return (
       <div>
-        <div></div>
         {this.Head()}
         <h1>My home page</h1>
         <p>Some content</p>

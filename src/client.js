@@ -2,13 +2,10 @@
 import 'babel-polyfill'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { BrowserRouter } from 'react-router-dom'
 
-import App from './app'
+import App from './router'
 
 ReactDOM.hydrate(
-  <BrowserRouter>
-    <App/>
-  </BrowserRouter>,
+  <App/>,
   document.querySelector('#root')
 )

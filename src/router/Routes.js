@@ -39,10 +39,15 @@ const NotFound = Loadable({
 export default [
   {
     path: '/',
-    component: Home,
+    exact: true,
+    component: Home
+  },
+  {
+    path: '/about',
+    component: About,
     routes: [
       {
-        path: "/about",
+        path: "/:id",
         component: About
       }
     ]

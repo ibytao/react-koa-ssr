@@ -1,16 +1,20 @@
 const path = require('path')
 const webpack = require('webpack')
 const reactLoadablePlugin = require('react-loadable/webpack').ReactLoadablePlugin
+const config = require('./config')
 
 module.exports = {
+  devtool: 'eval-source-map',
+  mode: config.env,
   entry: 'client.js',
   output: {
-    filename: 'client_build.js',
     path: path.resolve(__dirname, 'build/public'),
+    chunkFilename: '[name].js',
+    filename: '[name].js',
     publicPath: '/'
   },
   resolve: {
-    modules: [path.resolve('./src/client'), "node_modules"]
+    modules: [path.resolve('./src'), "node_modules"]
   },
   module: {
     rules: [
@@ -73,5 +77,16 @@ module.exports = {
     new reactLoadablePlugin({
       filename: './react-loadable.json',
     })
-  ]
+  ],
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        commons: {
+          test: /[\\/]node_modules[\\/]/,
+          name: "vendor",
+          chunks: "all"
+        }
+      }
+    }
+  }
 }

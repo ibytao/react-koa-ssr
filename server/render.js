@@ -6,17 +6,17 @@ import { matchRoutes, renderRoutes } from 'react-router-config';
 import {Provider} from 'react-redux'
 import Loadable from 'react-loadable'
 import { getBundles } from 'react-loadable/webpack'
-import stats from '../../../react-loadable.json'
+import stats from '../react-loadable.json'
 
-import Routes from '../../client/routes'
+import Routes from '../src/router/Routes'
 
 const renderer = function (ctx, context) {
   let modules = []
-  
+
   const content = renderToString(
     <Loadable.Capture report={moduleName => modules.push(moduleName)}>
       <StaticRouter location={ctx.path} context={context}>
-        {renderRoutes(Routes)}
+        <div>{renderRoutes(Routes)}</div>
       </StaticRouter>
     </Loadable.Capture>
   )
@@ -24,7 +24,7 @@ const renderer = function (ctx, context) {
   console.log(modules, '=====')
 
   let bundles = getBundles(stats, modules)
-  
+
   const helmet = Helmet.renderStatic()
 
   const html = `
@@ -34,13 +34,12 @@ const renderer = function (ctx, context) {
         ${helmet.title.toString()}
         <link rel='stylesheet' type='text/css' href='//unpkg.com/antd-mobile/dist/antd-mobile.min.css' />
         <link rel='stylesheet' type='text/css' href='//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css' />
-       ${bundles.map(bundle => {return `<script src="/${bundle.file}"></script>`}).join('\\n')}
       </head>
       <body>
-        <div id="root">
-        ${content}
-        </div>
-        <script src="client_build.js"></script>
+        <div id="root">${content}</div>
+        <script src="/vendor.js"></script>
+        ${bundles.map(bundle => {return `<script src="/${bundle.file}"></script>`}).join('\\n')}
+        <script src="main.js"></script>
       </body>
     </html>
   `
@@ -49,7 +48,6 @@ const renderer = function (ctx, context) {
 
 export default async (ctx, next) => {
   await next()
-
   const actionsTemp = matchRoutes(Routes, ctx.path)
         .map(({route}) => !route.component.preload ? route.component : route.component.preload().then(res => res.default))
 
