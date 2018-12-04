@@ -5,7 +5,7 @@ import { renderRoutes } from 'react-router-config';
 import { withRouter } from "react-router"
 
 const MyComponent = (WrappedComponent) =>
-      class extends React.Component {
+      class extends WrappedComponent {
         Head () {
           return (
             <Helmet>
@@ -20,19 +20,20 @@ const MyComponent = (WrappedComponent) =>
             <div>
               <h1>hello world wrapped component</h1>
               {renderRoutes(route.routes)}
-              <WrappedComponent/>
+              {super.render()}
             </div>
           )
         }
       }
 
 async function fetchData () {
-  const data = await axios.get('https://facebook.github.io/react-native/movies.json')
+  const data =  await axios.get('https://facebook.github.io/react-native/movies.json')
+  return data.data
   // console.log(data.data)
 }
 
-@MyComponent
 @withRouter
+@MyComponent
 export default class Home extends React.Component {
 
   constructor(props) {
@@ -44,14 +45,8 @@ export default class Home extends React.Component {
     // console.log(this.props)
   }
 
-  async fetchData () {
-    const data = await axios.get('https://facebook.github.io/react-native/movies.json')
-          .then(res => res.data)
-    // this.setState({data})
-  }
-
-  static loadData (ctx) {
-    console.log('--loaddata---', this)
+  static fetching (ctx) {
+    console.log('--loaddata---')
     return fetchData()
   }
 

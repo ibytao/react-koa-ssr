@@ -1,10 +1,11 @@
 const path = require('path')
+const webpack = require('webpack')
+const reactLoadablePlugin = require('react-loadable/webpack').ReactLoadablePlugin
 
 module.exports = {
   entry: 'client.js',
   output: {
     filename: 'client_build.js',
-    chunkFilename: '[name].bundle.js',
     path: path.resolve(__dirname, 'build/public'),
     publicPath: '/'
   },
@@ -67,5 +68,10 @@ module.exports = {
         ]
       }
     ]
-  }
+  },
+  plugins: [
+    new reactLoadablePlugin({
+      filename: './react-loadable.json',
+    })
+  ]
 }

@@ -6,7 +6,6 @@ module.exports = {
   entry: './src/server/index.js',
   output: {
     filename: 'bundle.js',
-    chunkFilename: '[name].bundle.js',
     path: path.resolve(__dirname, 'build'),
     publicPath: '/build'
   },
