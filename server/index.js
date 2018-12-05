@@ -7,7 +7,6 @@ import Loadable from 'react-loadable'
 import Render from './render'
 
 
-
 const port = process.env.PORT || 7777;
 const app = new Koa()
 
@@ -19,10 +18,9 @@ app.use(route.routes())
 // render react tempalet
 app.use(Render)
 
-
-Loadable.preloadReady().then(() => {
+Loadable.preloadAll().then(() => {
   app.listen(port, () => {
-    console.log(`App running ${port}`)
+    console.log(`Frontend service listening on port: ${port}`)
   })
 })
 

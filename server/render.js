@@ -11,6 +11,7 @@ import stats from '../react-loadable.json'
 import Routes from '../src/router/Routes'
 
 const renderer = function (ctx, context) {
+  
   let modules = []
 
   const content = renderToString(

@@ -31,7 +31,27 @@
       "publicPath": "/3.js"
     }
   ],
+  "undefined": [
+    {
+      "id": "",
+      "name": null,
+      "file": "css/main.css",
+      "publicPath": "/css/main.css"
+    },
+    {
+      "id": "",
+      "name": null,
+      "file": "main.js",
+      "publicPath": "/main.js"
+    }
+  ],
   "client.js": [
+    {
+      "id": "./src/client.js",
+      "name": "./src/client.js",
+      "file": "css/main.css",
+      "publicPath": "/css/main.css"
+    },
     {
       "id": "./src/client.js",
       "name": "./src/client.js",
@@ -43,6 +63,26 @@
     {
       "id": "./src/components/DynamicImport.js",
       "name": "./src/components/DynamicImport.js",
+      "file": "css/main.css",
+      "publicPath": "/css/main.css"
+    },
+    {
+      "id": "./src/components/DynamicImport.js",
+      "name": "./src/components/DynamicImport.js",
+      "file": "main.js",
+      "publicPath": "/main.js"
+    }
+  ],
+  "./pages/home/style.scss": [
+    {
+      "id": "./src/pages/home/style.scss",
+      "name": "./src/pages/home/style.scss",
+      "file": "css/main.css",
+      "publicPath": "/css/main.css"
+    },
+    {
+      "id": "./src/pages/home/style.scss",
+      "name": "./src/pages/home/style.scss",
       "file": "main.js",
       "publicPath": "/main.js"
     }
@@ -51,11 +91,23 @@
     {
       "id": "./src/router/Routes.js",
       "name": "./src/router/Routes.js",
+      "file": "css/main.css",
+      "publicPath": "/css/main.css"
+    },
+    {
+      "id": "./src/router/Routes.js",
+      "name": "./src/router/Routes.js",
       "file": "main.js",
       "publicPath": "/main.js"
     }
   ],
   "./router": [
+    {
+      "id": "./src/router/index.js",
+      "name": "./src/router/index.js",
+      "file": "css/main.css",
+      "publicPath": "/css/main.css"
+    },
     {
       "id": "./src/router/index.js",
       "name": "./src/router/index.js",
@@ -1271,6 +1323,12 @@
       "name": "./node_modules/core-js/library/modules/es6.array.iterator.js",
       "file": "vendor.js",
       "publicPath": "/vendor.js"
+    },
+    {
+      "id": "./node_modules/core-js/modules/es6.array.iterator.js",
+      "name": "./node_modules/core-js/modules/es6.array.iterator.js",
+      "file": "vendor.js",
+      "publicPath": "/vendor.js"
     }
   ],
   "../../modules/es6.object.assign": [
@@ -1473,7 +1531,7 @@
       "publicPath": "/vendor.js"
     }
   ],
-  "./modules/_core": [
+  "./_core": [
     {
       "id": "./node_modules/core-js/modules/_core.js",
       "name": "./node_modules/core-js/modules/_core.js",
@@ -1997,14 +2055,6 @@
     {
       "id": "./node_modules/core-js/modules/es6.array.is-array.js",
       "name": "./node_modules/core-js/modules/es6.array.is-array.js",
-      "file": "vendor.js",
-      "publicPath": "/vendor.js"
-    }
-  ],
-  "./modules/es6.array.iterator": [
-    {
-      "id": "./node_modules/core-js/modules/es6.array.iterator.js",
-      "name": "./node_modules/core-js/modules/es6.array.iterator.js",
       "file": "vendor.js",
       "publicPath": "/vendor.js"
     }
@@ -2721,7 +2771,7 @@
       "publicPath": "/vendor.js"
     }
   ],
-  "./modules/es6.set": [
+  "./es6.set": [
     {
       "id": "./node_modules/core-js/modules/es6.set.js",
       "name": "./node_modules/core-js/modules/es6.set.js",

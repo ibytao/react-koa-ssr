@@ -1,10 +1,13 @@
 const path = require('path')
 const webpack = require('webpack')
 const reactLoadablePlugin = require('react-loadable/webpack').ReactLoadablePlugin
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const MiniCssExtractPlugin = require("mini-css-extract-plugin")
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const config = require('./config')
 
 module.exports = {
-  devtool: 'eval-source-map',
+  devtool: config.debug ? 'inline-sourcemap' : false,
   mode: config.env,
   entry: 'client.js',
   output: {
@@ -19,7 +22,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.jsx?$/,
         exclude: '/node_modules/',
         use: {
           loader: 'babel-loader',
@@ -44,42 +47,31 @@ module.exports = {
         ]
       },
       {
-        test: /\.css$/,
-        use: [ 'style-loader', 'css-loader' ]
-      },
-      {
-        test: /\.scss$/,
+        test: /\.(scss|css)$/,
         use: [
-          {
-            loader: 'file-loader',
-            options: {
-              name: '[name].min.css',
-              outputPath: 'assets/css/'
-            }
-          },
-          {
-            loader: 'extract-loader'
-          },
-          {
-            loader: 'css-loader',
-            options: {
-              minimize: true
-            }
-          },
-          {
-            loader: 'sass-loader'
-          }
-        ]
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          // 'postcss-loader',
+          'sass-loader',
+        ],
       }
     ]
   },
   plugins: [
     new reactLoadablePlugin({
       filename: './react-loadable.json',
+    }),
+    new MiniCssExtractPlugin({
+      filename: 'css/main.css',
     })
   ],
   optimization: {
+    nodeEnv: config.env,
     splitChunks: {
+      chunks: 'async',
+      minSize: 30000,
+      minChunks: 1,
+      name: true,
       cacheGroups: {
         commons: {
           test: /[\\/]node_modules[\\/]/,
@@ -87,6 +79,23 @@ module.exports = {
           chunks: "all"
         }
       }
-    }
+    },
+    minimizer: [
+      new UglifyJsPlugin({
+        cache: true,
+        sourceMap: true,
+        uglifyOptions: {
+          warnings: false,
+          parse: {},
+          compress: {},
+          mangle: true, // Note `mangle.properties` is `false` by default.
+          output: null,
+          toplevel: false,
+          nameCache: null,
+          ie8: false,
+          keep_fnames: false,
+        }
+      })
+    ]
   }
 }
