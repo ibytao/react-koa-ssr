@@ -1,15 +1,20 @@
 {
-  "presets": [
-    "@babel/preset-react"
+  'presets': [
+    '@babel/preset-react'
   ],
-  "env": {
-    "development": {
-      "presets": [["@babel/preset-react", { "development": true }]]
+  'env': {
+    'development': {
+      'presets': [['@babel/preset-react', { 'development': true }]]
     }
   },
-  "plugins": [
-    ["@babel/plugin-proposal-decorators", { "legacy": true }],
-    "@babel/plugin-syntax-dynamic-import",
-    ["import", { libraryName: "antd-mobile"}]
+  'plugins': [
+    ['@babel/plugin-proposal-decorators', { 'legacy': true }],
+    '@babel/plugin-syntax-dynamic-import',
+    ['import', { libraryName: 'antd-mobile'}],
+    ['css-modules-transform', {
+      preprocessCss: './module-exporting-a-function.js',
+      extensions: ['.css', '.scss'],
+      extractCss: './build/public/css/main.css'
+    }]
   ]
 }

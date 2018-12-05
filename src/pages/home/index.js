@@ -2,8 +2,12 @@ import React from 'react'
 import {Helmet} from 'react-helmet'
 import axios from 'axios'
 import { withRouter } from "react-router"
+import classnames from 'classnames'
+import styles from './style.scss'
+// import CSSModules from 'react-css-modules'
 
 @withRouter
+// @CSSModules(styles, { allowMultiple: true })
 export default class Home extends React.Component {
 
   constructor(props) {
@@ -38,11 +42,18 @@ export default class Home extends React.Component {
     // console.log(this.props.history)
   }
   render () {
+    console.log(styles.title, '-0-0-0-0-0-0')
+
+    const classes = classnames({
+      title: true
+    })
+
     return (
-      <div>
+      <div className={styles.title}>
         {this.Head()}
         <h1>My home page</h1>
         <p>Some content</p>
+        <img src='/images/login.png'/>
         <button onClick={this.exampleMethod.bind(this)}>Console log some text</button>
       </div>
     )

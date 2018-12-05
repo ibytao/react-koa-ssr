@@ -41,7 +41,7 @@ module.exports = {
           {
             loader: 'file-loader',
             options: {
-              name: 'assets/webpack-images/[name].[ext]'
+              name: 'assets/images/[name].[ext]'
             }
           }
         ]
@@ -49,9 +49,22 @@ module.exports = {
       {
         test: /\.(scss|css)$/,
         use: [
-          MiniCssExtractPlugin.loader,
-          'css-loader',
-          // 'postcss-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              localIdentName: '[local]___[hash:base64:5]'
+            }
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              ident: 'postcss',
+              plugins: [
+                require('autoprefixer')({}),
+              ]
+            }
+          },
           'sass-loader',
         ],
       }
@@ -61,9 +74,9 @@ module.exports = {
     new reactLoadablePlugin({
       filename: './react-loadable.json',
     }),
-    new MiniCssExtractPlugin({
-      filename: 'css/main.css',
-    })
+    // new MiniCssExtractPlugin({
+    //   filename: 'css/main.css',
+    // })
   ],
   optimization: {
     nodeEnv: config.env,

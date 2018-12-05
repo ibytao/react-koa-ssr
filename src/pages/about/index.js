@@ -2,6 +2,7 @@ import React from 'react'
 import {Helmet} from 'react-helmet'
 import axios from 'axios'
 import { Button, WhiteSpace, WingBlank } from 'antd-mobile'
+import styles from './style.scss'
 
 export default class About extends React.Component {
   constructor(props) {
@@ -23,7 +24,7 @@ export default class About extends React.Component {
 
   render () {
     return (
-       <div>
+      <div className={styles.title}>
          {this.Head()}
         <Button>default</Button>
         <h1>My about page</h1>

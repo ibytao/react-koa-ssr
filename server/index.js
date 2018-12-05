@@ -11,6 +11,7 @@ const port = process.env.PORT || 7777;
 const app = new Koa()
 
 app.use(bodyParser())
+app.use(serve('assets'))
 app.use(serve('build/public'))
 
 // api

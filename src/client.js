@@ -6,8 +6,6 @@ import Loadable from 'react-loadable'
 
 import App from './router'
 
-import './pages/home/style.scss'
-
 Loadable.preloadAll().then(() => {
   ReactDOM.hydrate(
     <App/>,

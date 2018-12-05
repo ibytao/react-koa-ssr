@@ -35,6 +35,7 @@ const renderer = function (ctx, context) {
         ${helmet.title.toString()}
         <link rel='stylesheet' type='text/css' href='//unpkg.com/antd-mobile/dist/antd-mobile.min.css' />
         <link rel='stylesheet' type='text/css' href='//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css' />
+        <link rel='stylesheet' type='text/css' href='/css/main.css' />
       </head>
       <body>
         <div id="root">${content}</div>
@@ -67,8 +68,8 @@ export default async (ctx, next) => {
 
 
   await Promise.all(actions)
-  var context = {}
-  const content = renderer(ctx, context)
+  
+  const content = renderer(ctx, {})
 
   ctx.body = content
 }
