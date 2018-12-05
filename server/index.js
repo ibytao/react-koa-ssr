@@ -7,7 +7,7 @@ import Loadable from 'react-loadable'
 import Render from './render'
 
 
-const port = process.env.PORT || 7777;
+const port = process.env.PORT || 3001;
 const app = new Koa()
 
 app.use(bodyParser())
