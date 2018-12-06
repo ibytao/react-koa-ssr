@@ -9,7 +9,8 @@
     "webpack:start": "nodemon --watch build --exec node build/server.js",
     "build:client": "webpack --config webpack.client.js",
     "build:server": "webpack --config webpack.server.js",
-    "build": "cross-env NODE_ENV=production npm-run-all --parallel build:*",
+    "build": "cross-env NODE_ENV=production npm run build:client && npm run build:server",
+    "build:dev": "cross-env NODE_ENV=development npm run build:client && npm run build:server",
     "dev": "cross-env NODE_ENV=development npm-run-all --parallel webpack:*",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -36,6 +37,8 @@
     "koa-bodyparser": "^4.2.1",
     "koa-router": "^7.4.0",
     "koa-static": "^5.0.0",
+    "koa-webpack": "^5.1.1",
+    "koa-webpack-middleware": "^1.0.7",
     "mini-css-extract-plugin": "^0.4.5",
     "node-sass": "^4.10.0",
     "nodemon": "^1.18.7",

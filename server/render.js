@@ -2,27 +2,26 @@ import React from 'react'
 import {renderToString} from 'react-dom/server'
 import { StaticRouter } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
-import { matchRoutes, renderRoutes } from 'react-router-config';
+import { renderRoutes } from 'react-router-config';
 import {Provider} from 'react-redux'
 import Loadable from 'react-loadable'
 import { getBundles } from 'react-loadable/webpack'
-import stats from '../react-loadable.json'
-
+import stats from '../build/react-loadable.json'
 import Routes from '../src/router/Routes'
 
-const renderer = function (ctx, context) {
-  
+export default (ctx, store, context) => {
   let modules = []
-
   const content = renderToString(
     <Loadable.Capture report={moduleName => modules.push(moduleName)}>
-      <StaticRouter location={ctx.path} context={context}>
-        <div>{renderRoutes(Routes)}</div>
-      </StaticRouter>
+      <Provider store={store}>
+        <StaticRouter location={ctx.path} context={context}>
+          <div>{renderRoutes(Routes)}</div>
+        </StaticRouter>
+      </Provider>
     </Loadable.Capture>
   )
 
-  console.log(modules, '=====')
+  console.log(modules, '=====================')
 
   let bundles = getBundles(stats, modules)
 
@@ -39,6 +38,9 @@ const renderer = function (ctx, context) {
       </head>
       <body>
         <div id="root">${content}</div>
+        <script>
+          window.INITIAL_STATE = ${JSON.stringify(store.getState())}
+        </script>
         <script src="/vendor.js"></script>
         ${bundles.map(bundle => {return `<script src="/${bundle.file}"></script>`}).join('\\n')}
         <script src="main.js"></script>
@@ -46,30 +48,4 @@ const renderer = function (ctx, context) {
     </html>
   `
   return html
-}
-
-export default async (ctx, next) => {
-  await next()
-  const actionsTemp = matchRoutes(Routes, ctx.path)
-        .map(({route}) => !route.component.preload ? route.component : route.component.preload().then(res => res.default))
-
-  const loadedActions = await Promise.all(actionsTemp)
-
-  const actions = loadedActions
-        .map(component => component.fetching ? component.fetching(ctx) : null)
-        .map(async actions => {
-          if (actions) {
-            return await new Promise(resolve => actions.then((res) => {
-              console.log(res, '||||||')
-              resolve(res)
-            }).catch(resolve))
-          }
-        })
-
-
-  await Promise.all(actions)
-  
-  const content = renderer(ctx, {})
-
-  ctx.body = content
 }

@@ -3,11 +3,12 @@ import {Helmet} from 'react-helmet'
 import axios from 'axios'
 import { withRouter } from "react-router"
 import classnames from 'classnames'
+import { connect } from 'react-redux'
+import { fetchHome } from './redux'
 import styles from './style.scss'
-// import CSSModules from 'react-css-modules'
 
 @withRouter
-// @CSSModules(styles, { allowMultiple: true })
+@connect(({ country }) => ({ country }), { fetchHome })
 export default class Home extends React.Component {
 
   constructor(props) {
@@ -19,12 +20,10 @@ export default class Home extends React.Component {
     // console.log(this.props)
   }
 
-  static fetching (ctx) {
+  static fetching ({dispatch, ctx}) {
     console.log('home--loaddata---')
-    return axios.get('https://facebook.github.io/react-native/movies.json')
-      .then(res => {
-        return res.data
-      })
+    // return [dispatch(fetchHome())]
+    return 'ok'
   }
 
   Head () {

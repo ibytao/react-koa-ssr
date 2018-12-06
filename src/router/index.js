@@ -5,16 +5,13 @@ import { renderRoutes } from 'react-router-config'
 import { BrowserRouter } from 'react-router-dom'
 import Routes from './Routes'
 
-export default class App extends React.Component {
-  render () {
-    return (
-      <BrowserRouter>
-        <div>{renderRoutes(Routes)}</div>
-      </BrowserRouter>
-    )
-  }
+export default () => {
+  return (
+    <BrowserRouter>
+      <div>{renderRoutes(Routes)}</div>
+    </BrowserRouter>
+  )
 }
-
 
 // const renderRoutes = (routes, authed, authPath, extraProps = {}, switchProps = {}) => routes ? (
 //   <Switch {...switchProps}>

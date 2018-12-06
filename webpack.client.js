@@ -72,7 +72,7 @@ module.exports = {
   },
   plugins: [
     new reactLoadablePlugin({
-      filename: './react-loadable.json',
+      filename: './build/react-loadable.json',
     }),
     // new MiniCssExtractPlugin({
     //   filename: 'css/main.css',
@@ -81,10 +81,6 @@ module.exports = {
   optimization: {
     nodeEnv: config.env,
     splitChunks: {
-      chunks: 'async',
-      minSize: 30000,
-      minChunks: 1,
-      name: true,
       cacheGroups: {
         commons: {
           test: /[\\/]node_modules[\\/]/,
