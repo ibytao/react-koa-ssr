@@ -9,7 +9,7 @@ export default [
   },
   {
     path: '/about',
-    component: Import(import('../pages/layout')),
+    component: Import(import('../layouts')),
     routes: [
       {
         path: "/:id",

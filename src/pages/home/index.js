@@ -8,7 +8,7 @@ import { fetchHome } from './redux'
 import styles from './style.scss'
 
 @withRouter
-@connect(({ country }) => ({ country }), { fetchHome })
+@connect(({ home }) => ({ home }), { fetchHome })
 export default class Home extends React.Component {
 
   constructor(props) {
@@ -23,7 +23,14 @@ export default class Home extends React.Component {
   static fetching ({dispatch, ctx}) {
     console.log('home--loaddata---')
     // return [dispatch(fetchHome())]
-    return 'ok'
+  }
+
+  componentDidMount() {
+    const { home: { data } } = this.props;
+
+    if (!data || data.length === 0) {
+      this.props.fetchHome()
+    }
   }
 
   Head () {
@@ -41,7 +48,7 @@ export default class Home extends React.Component {
     // console.log(this.props.history)
   }
   render () {
-    console.log(styles.title, '-0-0-0-0-0-0')
+    // console.log(styles.title, '-0-0-0-0-0-0')
 
     const classes = classnames({
       title: true

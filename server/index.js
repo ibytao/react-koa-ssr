@@ -2,7 +2,7 @@ import '@babel/polyfill'
 import Koa from 'koa'
 import bodyParser from 'koa-bodyparser'
 import serve from 'koa-static'
-// import route from './routes'
+import route from './routes'
 import Loadable from 'react-loadable'
 import store from '../src/redux/store'
 import { matchRoutes } from 'react-router-config'
@@ -26,14 +26,14 @@ app.use(serve('build/public'))
 //   })
 
 // api
-// app.use(route.routes())
+app.use(route.routes())
 // render react tempalet
 app.use(async (ctx, next) => {
   await next()
-  const actionsTemp = matchRoutes(Routes, ctx.path)
+  const components = matchRoutes(Routes, ctx.path)
         .map(({route}) => !route.component.preload ? route.component : route.component.preload().then(res => res.default))
 
-  const loadedActions = await Promise.all(actionsTemp)
+  const loadedActions = await Promise.all(components)
 
   const actions = loadedActions
         .map(component => component.fetching ? component.fetching({...store, ctx}) : null)

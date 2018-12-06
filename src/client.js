@@ -8,7 +8,7 @@ import store from './redux/store'
 
 import Router from './router'
 
-Loadable.preloadReady().then(() => {
+Loadable.preloadAll().then(() => {
   hydrate(
     <Provider store={store}>
       <Router/>

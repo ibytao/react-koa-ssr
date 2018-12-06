@@ -2,8 +2,10 @@ import React from 'react'
 import {Helmet} from 'react-helmet'
 import axios from 'axios'
 import { Button, WhiteSpace, WingBlank } from 'antd-mobile'
+import { withRouter } from "react-router"
 import styles from './style.scss'
 
+@withRouter
 export default class About extends React.Component {
   constructor(props) {
     super(props)
